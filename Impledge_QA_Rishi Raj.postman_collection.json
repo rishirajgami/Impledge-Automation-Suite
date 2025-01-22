@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "d77347fd-e769-49b7-b969-f0560c5d6b6f",
+		"name": "Impledge_QA_Rishi Raj",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32703922"
+	},
+	"item": [
+		{
+			"name": "Address - Verify",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response body has no errors\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"errors\\\":[]\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response ZIP verified\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"94104\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"adr_3a2086e3bafa11eeb8d4ac1f6bc539ae\",\r\n  \"object\": \"Address\",\r\n  \"created_at\": \"2024-01-24T20:50:37+00:00\",\r\n  \"updated_at\": \"2024-01-24T20:50:37+00:00\",\r\n  \"name\": null,\r\n  \"company\": \"EasyPost\",\r\n  \"street1\": \"417 MONTGOMERY ST\",\r\n  \"street2\": \"FLOOR 5\",\r\n  \"city\": \"SAN FRANCISCO\",\r\n  \"state\": \"CA\",\r\n  \"zip\": \"06810\",\r\n  \"country\": \"US\",\r\n  \"phone\": \"4151234567\",\r\n  \"email\": null,\r\n  \"mode\": \"test\",\r\n  \"carrier_facility\": null,\r\n  \"residential\": null,\r\n  \"federal_tax_id\": null,\r\n  \"state_tax_id\": null,\r\n  \"verifications\": {}\r\n}"
+				},
+				"url": {
+					"raw": "https://api.easypost.com/v2/addresses?verify_strict[]=delivery",
+					"protocol": "https",
+					"host": [
+						"api",
+						"easypost",
+						"com"
+					],
+					"path": [
+						"v2",
+						"addresses"
+					],
+					"query": [
+						{
+							"key": "verify_strict[]",
+							"value": "delivery"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test 1: Verify that value of selected_rate.retail_rate is equal to 12\r",
+							"pm.test(\"Verify selected_rate.retail_rate equals 12\", function () {\r",
+							"    // Parse the JSON response body\r",
+							"    var responseJson = pm.response.json();\r",
+							"    \r",
+							"    // Verify that selected_rate.retail_rate equals 12\r",
+							"    pm.expect(responseJson.selected_rate.retail_rate).to.eql(12);\r",
+							"});\r",
+							"\r",
+							"// Test 2: Verify that retail_rate is greater than list_rate\r",
+							"pm.test(\"Verify retail_rate is greater than list_rate\", function () {\r",
+							"    // Parse the JSON response body\r",
+							"    var responseJson = pm.response.json();\r",
+							"    \r",
+							"    // Verify that retail_rate is greater than list_rate\r",
+							"    pm.expect(responseJson.selected_rate.retail_rate).to.be.above(responseJson.selected_rate.list_rate);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.easypost.com/v2/shipments/shp_e0b570fd1d7d4b62bd206917eae5881a",
+					"protocol": "https",
+					"host": [
+						"api",
+						"easypost",
+						"com"
+					],
+					"path": [
+						"v2",
+						"shipments",
+						"shp_e0b570fd1d7d4b62bd206917eae5881a"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "EZTK0126bfcd0c834208b2289e3c501630d7IMAAxVrGZ2G1UXCmomm4Pw",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
